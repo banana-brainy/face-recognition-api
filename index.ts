@@ -1,7 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-/* import bcrypt, { hash } from 'bcryptjs'; */
 import cors from 'cors';
 
 dotenv.config();
@@ -49,13 +48,11 @@ app.get('/', (req: Request, res: Response) => {
   res.send(database.users);
 });
 
+// This route heavily affects onSubmitSignIn function in SignIn.tsx component.
 app.post('/signin', (req: Request, res: Response) => {
-  /* bcrypt.compare(password, hash, function(err, res) {
-    <your code here>
-  }); */
   if (req.body.email === database.users[0].email &&
       req.body.password === database.users[0].password) {
-        res.json('success');
+        res.json(database.users[0]);
       } else {
         res.status(400).json('error logging in');
       }
@@ -63,10 +60,6 @@ app.post('/signin', (req: Request, res: Response) => {
 
 app.post('/register', (req: Request, res: Response) => {
   const { email, name }: IUserForDatabase = req.body;
-  /* bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash(password, salt, function(err, hash) {
-    });
-  }); */
   database.users.push({
     id: '125',
     name: name,
@@ -75,9 +68,9 @@ app.post('/register', (req: Request, res: Response) => {
     joined: new Date(),
   })
   res.json(database.users[database.users.length-1])
-  // grabs the last item in the array
-  // which is the one that we've added with .push
-  // so this adds a new user to the database
+  // The line of code above grabs the last item in the array,
+  // which is the one that we've added with .push earlier,
+  // so this adds a new user to the database.
 })
 
 app.get('/profile/:id', (req: Request, res: Response) => {
