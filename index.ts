@@ -87,7 +87,7 @@ app.get('/profile/:id', (req: Request, res: Response) => {
 })
 
 app.put('/image', (req: Request, res: Response) => {
-  const { id } = req.body;
+  const { id } = req.params;
   let found: boolean = false;
   database.users.forEach(user => {
     if (user.id === id) {
