@@ -68,7 +68,7 @@ app.post('/register', (req: Request, res: Response) => {
   })
   res.json(database.users[database.users.length-1])
   // The line of code above grabs the last item in the array,
-  // which is the one that we've added with .push earlier,
+  // which is the one that we've added with `.push` earlier,
   // so this adds a new user to the database.
 })
 
@@ -87,7 +87,7 @@ app.get('/profile/:id', (req: Request, res: Response) => {
 })
 
 app.put('/image', (req: Request, res: Response) => {
-  const { id } = req.body;
+  const { id } = req.params;
   let found: boolean = false;
   database.users.forEach(user => {
     if (user.id === id) {
