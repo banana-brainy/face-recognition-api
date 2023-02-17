@@ -68,7 +68,7 @@ app.post('/register', (req: Request, res: Response) => {
   })
   res.json(database.users[database.users.length-1])
   // The line of code above grabs the last item in the array,
-  // which is the one that we've added with .push earlier,
+  // which is the one that we've added with `.push` earlier,
   // so this adds a new user to the database.
 })
 
