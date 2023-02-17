@@ -48,7 +48,6 @@ app.get('/', (req: Request, res: Response) => {
   res.send(database.users);
 });
 
-// This route heavily affects onSubmitSignIn function in SignIn.tsx component.
 app.post('/signin', (req: Request, res: Response) => {
   if (req.body.email === database.users[0].email &&
       req.body.password === database.users[0].password) {
