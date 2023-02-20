@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import knex from 'knex';
 
+// Here we are connecting to my db using knex.
 const db = knex({
   client: 'pg',
   connection: {
@@ -34,6 +35,7 @@ interface IDatabase {
   users: IUserForDatabase[];
 }
 
+// This is going away soon.
 const database: IDatabase = {
   users: [
     {
@@ -68,16 +70,21 @@ app.post('/signin', (req: Request, res: Response) => {
       }
 })
 
+// This route is registering the user, making a call to the db,
+// checking whether the user is already registered.
 app.post('/register', (req: Request, res: Response) => {
   const { email, name, password }: IUserForDatabase = req.body;
-  db('users').insert({
+  db('users')
+    .returning('*')
+    .insert({
     email: email,
     name: name,
     joined: new Date()
   })
-    .then(response => {
-      res.json(database.users[database.users.length-1]);
-    })
+  .then(user => {
+    res.json(user[0]);
+  })
+  .catch(err => res.status(400).json('unable to register'))
 })
 
 app.get('/profile/:id', (req: Request, res: Response) => {

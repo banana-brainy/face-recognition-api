@@ -54,18 +54,21 @@ app.post('/signin', (req, res) => {
         res.status(400).json('error logging in');
     }
 });
+// This route is registering the user, making a call to the db,
+// checking whether the user is already registered.
 app.post('/register', (req, res) => {
     const { email, name, password } = req.body;
-    db('users').insert({
+    db('users')
+        .returning('*')
+        .insert({
         email: email,
         name: name,
         joined: new Date()
     })
-        .then(console.log);
-    res.json(database.users[database.users.length - 1]);
-    // The line of a code above grabs the last item in the array,
-    // which is one that we've added with `.push` earlier,
-    // so this adds a new user to the database.
+        .then(user => {
+        res.json(user[0]);
+    })
+        .catch(err => res.status(400).json('unable to register'));
 });
 app.get('/profile/:id', (req, res) => {
     const { id } = req.params;
