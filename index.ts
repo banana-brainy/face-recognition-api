@@ -3,17 +3,6 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-const face_recDB = require('knex')({
-  client: 'pg',
-  connection: process.env.PG_CONNECTION_STRING,
-  searchPath: ['knex', 'public']
-});
-
-// At this stage I have made a connection from
-// 'knex' to postgres database. Now I need to make
-// this connection visible and working.
-console.log(face_recDB.select('*').from('users'))
-
 dotenv.config();
 
 const app: Express = express();
@@ -78,7 +67,7 @@ app.post('/register', (req: Request, res: Response) => {
     joined: new Date(),
   })
   res.json(database.users[database.users.length-1])
-  // The line of code above grabs the last item in the array,
+  // The line of a code above grabs the last item in the array,
   // which is the one that we've added with `.push` earlier,
   // so this adds a new user to the database.
 })
