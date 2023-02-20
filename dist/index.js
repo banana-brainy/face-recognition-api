@@ -7,6 +7,19 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
+const knex_1 = __importDefault(require("knex"));
+const db = (0, knex_1.default)({
+    client: 'pg',
+    connection: {
+        host: '127.0.0.1',
+        user: 'postgres',
+        password: 'Tujh2022!',
+        database: 'face_rec'
+    }
+});
+db.select('*').from('users').then(data => {
+    console.log(data);
+});
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
@@ -55,7 +68,7 @@ app.post('/register', (req, res) => {
     });
     res.json(database.users[database.users.length - 1]);
     // The line of a code above grabs the last item in the array,
-    // which is the one that we've added with `.push` earlier,
+    // which is one that we've added with `.push` earlier,
     // so this adds a new user to the database.
 });
 app.get('/profile/:id', (req, res) => {

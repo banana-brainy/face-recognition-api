@@ -2,6 +2,21 @@ import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import knex from 'knex';
+
+const db = knex({
+  client: 'pg',
+  connection: {
+    host: '127.0.0.1',
+    user: 'postgres',
+    password: 'Tujh2022!',
+    database: 'face_rec'
+  }
+});
+
+db.select('*').from('users').then(data => {
+  console.log(data);
+});
 
 dotenv.config();
 
@@ -68,7 +83,7 @@ app.post('/register', (req: Request, res: Response) => {
   })
   res.json(database.users[database.users.length-1])
   // The line of a code above grabs the last item in the array,
-  // which is the one that we've added with `.push` earlier,
+  // which is one that we've added with `.push` earlier,
   // so this adds a new user to the database.
 })
 
