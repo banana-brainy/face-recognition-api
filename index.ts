@@ -3,6 +3,17 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+const face_recDB = require('knex')({
+  client: 'pg',
+  connection: process.env.PG_CONNECTION_STRING,
+  searchPath: ['knex', 'public']
+});
+
+// At this stage I have made a connection from
+// 'knex' to postgres database. Now I need to make
+// this connection visible and working.
+console.log(face_recDB.select('*').from('users'))
+
 dotenv.config();
 
 const app: Express = express();
