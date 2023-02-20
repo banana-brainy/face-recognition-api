@@ -17,9 +17,6 @@ const db = (0, knex_1.default)({
         database: 'face_rec'
     }
 });
-db.select('*').from('users').then(data => {
-    console.log(data);
-});
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
@@ -58,14 +55,13 @@ app.post('/signin', (req, res) => {
     }
 });
 app.post('/register', (req, res) => {
-    const { email, name } = req.body;
-    database.users.push({
-        id: '125',
-        name: name,
+    const { email, name, password } = req.body;
+    db('users').insert({
         email: email,
-        entries: 0,
-        joined: new Date(),
-    });
+        name: name,
+        joined: new Date()
+    })
+        .then(console.log);
     res.json(database.users[database.users.length - 1]);
     // The line of a code above grabs the last item in the array,
     // which is one that we've added with `.push` earlier,

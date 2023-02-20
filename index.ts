@@ -14,10 +14,6 @@ const db = knex({
   }
 });
 
-db.select('*').from('users').then(data => {
-  console.log(data);
-});
-
 dotenv.config();
 
 const app: Express = express();
@@ -73,18 +69,15 @@ app.post('/signin', (req: Request, res: Response) => {
 })
 
 app.post('/register', (req: Request, res: Response) => {
-  const { email, name }: IUserForDatabase = req.body;
-  database.users.push({
-    id: '125',
-    name: name,
+  const { email, name, password }: IUserForDatabase = req.body;
+  db('users').insert({
     email: email,
-    entries: 0,
-    joined: new Date(),
+    name: name,
+    joined: new Date()
   })
-  res.json(database.users[database.users.length-1])
-  // The line of a code above grabs the last item in the array,
-  // which is one that we've added with `.push` earlier,
-  // so this adds a new user to the database.
+    .then(response => {
+      res.json(database.users[database.users.length-1]);
+    })
 })
 
 app.get('/profile/:id', (req: Request, res: Response) => {
