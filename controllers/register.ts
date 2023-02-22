@@ -21,6 +21,7 @@
 
 // So now I need to look at the code and try figuring out
 // why the routing didn't manage, while the DB got it.
+// How does this route load the main page?
 
 interface IUserForDatabase {
     id: string,
