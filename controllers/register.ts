@@ -1,8 +1,5 @@
 // This route is registering the user and making a call to the DB,
 // checking whether the user is already registered.
-
-// How does this route load the main page?
-
 import express, { Express, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -23,6 +20,8 @@ connection: {
 }
 });
 
+// I should put this interface outside of the controller and server.
+// It duplicates.
 interface IUserForDatabase {
     id: string,
     name: string,

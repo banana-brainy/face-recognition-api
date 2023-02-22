@@ -25,6 +25,8 @@ const app: Express = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+// I should put this interface outside of the controller and server.
+// It duplicates.
 interface IUserForDatabase {
   id: string,
   name: string,
@@ -52,8 +54,7 @@ app.post('/signin', (req: Request, res: Response) => {
   .catch(err => res.status(400).json('wrong credentials'))
 })
 
-// How to make dependency injection in Typescript?
-app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
+app.post('/register', (req, res) => { register.handleRegister(req, res) })
 
 // This is for future installments, for profile page.
 // Returns user's object.

@@ -21,8 +21,8 @@ const db = (0, knex_1.default)({
     }
 });
 dotenv_1.default.config();
-const app = (0, express_1.default)();
 const port = process.env.PORT;
+const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.use((0, cors_1.default)());
 // Signs in the user.
@@ -45,8 +45,7 @@ app.post('/signin', (req, res) => {
     })
         .catch(err => res.status(400).json('wrong credentials'));
 });
-// How to make dependency injection in Typescript?
-app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcryptjs_1.default); });
+app.post('/register', (req, res) => { register.handleRegister(req, res); });
 // This is for future installments, for profile page.
 // Returns user's object.
 app.get('/profile/:id', (req, res) => {
