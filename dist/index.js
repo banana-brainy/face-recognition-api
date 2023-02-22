@@ -9,7 +9,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const knex_1 = __importDefault(require("knex"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-// Connecting to my db using knex.
+// Connecting to my DB using knex.
 const db = (0, knex_1.default)({
     client: 'pg',
     connection: {
@@ -24,7 +24,7 @@ const app = (0, express_1.default)();
 const port = process.env.PORT;
 app.use(body_parser_1.default.json());
 app.use((0, cors_1.default)());
-// 
+// Signs in the user.
 app.post('/signin', (req, res) => {
     return db.select('email', 'hash').from('login')
         .where('email', '=', req.body.email)
@@ -101,5 +101,5 @@ app.put('/image', (req, res) => {
         .catch(err => res.status(400).json('unable to get entries'));
 });
 app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    console.log(`Server is running at http://localhost:${port}`);
 });
