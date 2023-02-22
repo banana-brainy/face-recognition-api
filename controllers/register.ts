@@ -11,13 +11,13 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const db = knex({
-client: 'pg',
-connection: {
-    host: '127.0.0.1',
-    user: 'postgres',
-    password: 'Tujh2022!',
-    database: 'face_rec'
-}
+    client: 'pg',
+    connection: {
+        host: '127.0.0.1',
+        user: 'postgres',
+        password: 'Tujh2022!',
+        database: 'face_rec'
+    }
 });
 
 // I should put this interface outside of the controller and server.
@@ -42,11 +42,11 @@ const handleRegister = (req: Request, res: Response) => {
         .returning('email')
         .then((loginEmail) => {
             return trx('users')
-                .returning('*')
-                .insert({
-                    email: loginEmail[0].email,
-                    name: name,
-                    joined: new Date()
+            .returning('*')
+            .insert({
+                email: loginEmail[0].email,
+                name: name,
+                joined: new Date()
             })
             .then((user) => {
                 res.json(user[0]);
