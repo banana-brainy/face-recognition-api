@@ -23,6 +23,26 @@
 // why the routing didn't manage, while the DB got it.
 // How does this route load the main page?
 
+import express, { Express, Request, Response } from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import knex from 'knex';
+import bcrypt from 'bcryptjs';
+
+const app: Express = express();
+app.use(bodyParser.json());
+app.use(cors());
+
+const db = knex({
+client: 'pg',
+connection: {
+    host: '127.0.0.1',
+    user: 'postgres',
+    password: 'Tujh2022!',
+    database: 'face_rec'
+}
+});
+
 interface IUserForDatabase {
     id: string,
     name: string,
@@ -30,18 +50,18 @@ interface IUserForDatabase {
     password: string,
 }
 
-const handleRegister = (req: Request, res: Response, db: any, bcrypt: any) => {
-    const { email, name, password }: any = req.body;
+const handleRegister = (req: Request, res: Response) => {
+    const { email, name, password }: IUserForDatabase = req.body;
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
-        return db.transaction((trx: any) => {
+        return db.transaction((trx) => {
             trx.insert({
                 hash: hash,
                 email: email
             })
             .into('login')
             .returning('email')
-            .then((loginEmail: any) => {
+            .then((loginEmail) => {
                 return trx('users')
                 .returning('*')
                 .insert({
@@ -49,14 +69,14 @@ const handleRegister = (req: Request, res: Response, db: any, bcrypt: any) => {
                     name: name,
                     joined: new Date()
                 })
-                .then((user: any) => {
-                    res.json();
+                .then((user) => {
+                    res.json(user[0].user);
                 })
             })
             .then(trx.commit)
             .catch(trx.rollback)
             })
-            .catch((err: any) => res.json())
+            .catch((err: any) => res.json('something went wrong'))
 }
 
 module.exports = {

@@ -19,9 +19,9 @@ const db = knex({
 });
 
 dotenv.config();
+const port = process.env.PORT;
 
 const app: Express = express();
-const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(cors());
 
