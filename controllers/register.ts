@@ -8,7 +8,7 @@ interface IUserFromDatabase {
     password: string,
 }
 
-async function handleRegister(req: Request, res: Response): Promise<unknown> {
+async function handleRegister({ req, res }: { req: Request; res: Response; }): Promise<unknown> {
     const { email, name, password }: IUserFromDatabase = req.body;
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);

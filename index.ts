@@ -31,7 +31,7 @@ app.post('/signin', (req, res) => { handleSignIn({ req, res }) })
 
 // This route is registering the user and making a call to the DB,
 // checking whether the user is already registered.
-app.post('/register', (req, res) => { handleRegister(req, res) })
+app.post('/register', (req, res) => { handleRegister({ req, res }) })
 
 // This is for future installments such as a profile page.
 // Returns user's object.
