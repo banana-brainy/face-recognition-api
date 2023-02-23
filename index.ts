@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import knex from 'knex';
-import bcrypt from 'bcryptjs';
 
 const register = require('./controllers/register')
+const signin = require('./controllers/signin')
 
 // Connecting to my DB using knex.
 const db = knex({
@@ -35,25 +35,10 @@ interface IUserForDatabase {
 }
 
 // Signs in the user.
-app.post('/signin', (req: Request, res: Response) => {
-  return db.select('email', 'hash').from('login')
-  .where('email', '=', req.body.email)
-  .then(data => {
-    const isValid = bcrypt.compareSync(req.body.password, data[0].hash);
-    if (isValid) {
-      db.select('*').from('users')
-        .where('email', '=', req.body.email)
-        .then(user => {
-          res.json(user[0])
-        })
-        .catch(err => res.status(400).json('unable to get a user'))
-    } else {
-    res.status(400).json('wrong credentials')
-    }
-  })
-  .catch(err => res.status(400).json('wrong credentials'))
-})
+app.post('/signin', (req, res) => { signin.handleSignIn(req, res) })
 
+// This route is registering the user and making a call to the DB,
+// checking whether the user is already registered.
 app.post('/register', (req, res) => { register.handleRegister(req, res) })
 
 // This is for future installments, for profile page.

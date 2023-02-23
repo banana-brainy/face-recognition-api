@@ -1,5 +1,3 @@
-// This route is registering the user and making a call to the DB,
-// checking whether the user is already registered.
 import express, { Express, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
