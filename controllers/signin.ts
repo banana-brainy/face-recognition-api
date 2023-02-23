@@ -2,14 +2,23 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import db from '../index';
 
+interface IUserFromDatabase {
+    email: string,
+    password: string,
+}
+
 async function handleSignIn({ req, res }: { req: Request; res: Response; }): Promise<Response<any, Record<string, any>> | undefined> {
     try {
+        const { email, password }: IUserFromDatabase = req.body;
+        if (!email || !password) {
+            return res.status(400).json('incorrect form submission')
+        }
         const data = await db.select('email', 'hash').from('login')
-            .where('email', '=', req.body.email);
-        const isValid = bcrypt.compareSync(req.body.password, data[0].hash);
+            .where('email', '=', email);
+        const isValid = bcrypt.compareSync(password, data[0].hash);
         if (isValid) {
             db.select('*').from('users')
-                .where('email', '=', req.body.email)
+                .where('email', '=', email)
                 .then(user => {
                     res.json(user[0]);
                 })

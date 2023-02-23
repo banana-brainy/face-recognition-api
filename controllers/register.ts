@@ -10,6 +10,9 @@ interface IUserFromDatabase {
 
 async function handleRegister({ req, res }: { req: Request; res: Response; }): Promise<unknown> {
     const { email, name, password }: IUserFromDatabase = req.body;
+    if (!email || !name || !password) {
+        return res.status(400).json('incorrect form submission')
+    }
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
     try {
