@@ -1,12 +1,6 @@
-import express, { Express, Request, Response } from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
+import { Request, Response } from 'express';
 import knex from 'knex';
 import bcrypt from 'bcryptjs';
-
-const app: Express = express();
-app.use(bodyParser.json());
-app.use(cors());
 
 const db = knex({
     client: 'pg',
@@ -18,14 +12,14 @@ const db = knex({
     }
 });
 
-interface IUserForDatabase {
+interface IUserFromDatabase {
     name: string,
     email: string,
     password: string,
 }
 
 const handleRegister = (req: Request, res: Response) => {
-    const { email, name, password }: IUserForDatabase = req.body;
+    const { email, name, password }: IUserFromDatabase = req.body;
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
     return db.transaction((trx) => {

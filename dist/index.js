@@ -11,6 +11,7 @@ const knex_1 = __importDefault(require("knex"));
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
+const image = require('./controllers/image');
 // Connecting to my DB using knex.
 const db = (0, knex_1.default)({
     client: 'pg',
@@ -31,20 +32,11 @@ app.post('/signin', (req, res) => { signin.handleSignIn(req, res); });
 // This route is registering the user and making a call to the DB,
 // checking whether the user is already registered.
 app.post('/register', (req, res) => { register.handleRegister(req, res); });
-// This is for future installments, for profile page.
+// This is for future installments such as a profile page.
 // Returns user's object.
 app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res); });
 // Updates the rank and increases the count.
-app.put('/image', (req, res) => {
-    const { id } = req.body;
-    db('users').where('id', '=', id)
-        .increment('entries', 1)
-        .returning('entries')
-        .then(entries => {
-        res.json(entries[0].entries);
-    })
-        .catch(err => res.status(400).json('unable to get entries'));
-});
+app.put('/image', (req, res) => { image.handleImage(req, res); });
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
