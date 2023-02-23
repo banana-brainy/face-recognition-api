@@ -42,6 +42,4 @@ const handleRegister = (req, res) => {
     })
         .catch(err => res.status(400).json('unable to register'));
 };
-module.exports = {
-    handleRegister: handleRegister
-};
+exports.default = handleRegister;
