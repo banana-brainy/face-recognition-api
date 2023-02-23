@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import db from '../index';
 
-interface IID {
+interface IUserID {
     id: string
 }
 
 function handleImage({ req, res }: { req: Request; res: Response; }): void {
-    const { id }: IID = req.body;
+    const { id }: IUserID = req.body;
     db('users').where('id', '=', id)
         .increment('entries', 1)
         .returning('entries')
