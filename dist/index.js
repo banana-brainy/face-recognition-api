@@ -10,6 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const knex_1 = __importDefault(require("knex"));
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
+const profile = require('./controllers/profile');
 // Connecting to my DB using knex.
 const db = (0, knex_1.default)({
     client: 'pg',
@@ -32,19 +33,7 @@ app.post('/signin', (req, res) => { signin.handleSignIn(req, res); });
 app.post('/register', (req, res) => { register.handleRegister(req, res); });
 // This is for future installments, for profile page.
 // Returns user's object.
-app.get('/profile/:id', (req, res) => {
-    const { id } = req.params;
-    db.select('*').from('users').where({ id })
-        .then(user => {
-        if (user.length) {
-            res.json(user[0]);
-        }
-        else {
-            res.status(400).json('Not found');
-        }
-    })
-        .catch(err => res.status(400).json('Not found'));
-});
+app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res); });
 // Updates the rank and increases the count.
 app.put('/image', (req, res) => {
     const { id } = req.body;

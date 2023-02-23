@@ -18,10 +18,7 @@ const db = knex({
     }
 });
 
-// I should put this interface outside of the controller and server.
-// It duplicates.
 interface IUserForDatabase {
-    id: string,
     name: string,
     email: string,
     password: string,

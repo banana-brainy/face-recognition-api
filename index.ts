@@ -4,8 +4,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import knex from 'knex';
 
-const register = require('./controllers/register')
-const signin = require('./controllers/signin')
+const register = require('./controllers/register');
+const signin = require('./controllers/signin');
+const profile = require('./controllers/profile')
 
 // Connecting to my DB using knex.
 const db = knex({
@@ -25,13 +26,8 @@ const app: Express = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// I should put this interface outside of the controller and server.
-// It duplicates.
 interface IUserForDatabase {
-  id: string,
-  name: string,
-  email: string,
-  password: string,
+  id: string
 }
 
 // Signs in the user.
@@ -43,18 +39,7 @@ app.post('/register', (req, res) => { register.handleRegister(req, res) })
 
 // This is for future installments, for profile page.
 // Returns user's object.
-app.get('/profile/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  db.select('*').from('users').where({ id })
-    .then(user => {
-    if (user.length) {
-      res.json(user[0]);
-    } else {
-      res.status(400).json('Not found')
-    }
-  })
-  .catch(err => res.status(400).json('Not found'))
-})
+app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res) })
 
 // Updates the rank and increases the count.
 app.put('/image', (req: Request, res: Response) => {

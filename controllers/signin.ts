@@ -18,15 +18,6 @@ const db = knex({
     }
 });
 
-// I should put this interface outside of the controller and server.
-// It duplicates.
-interface IUserForDatabase {
-    id: string,
-    name: string,
-    email: string,
-    password: string,
-}
-
 const handleSignIn = (req: Request, res: Response) => {
     return db.select('email', 'hash').from('login')
     .where('email', '=', req.body.email)
