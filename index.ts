@@ -6,7 +6,7 @@ import knex from 'knex';
 import handleRegister from './controllers/register';
 import handleSignIn from './controllers/signin';
 import handleProfileGet from './controllers/profile';
-import handleImage from './controllers/image';
+import { handleImage, handleAPICall } from './controllers/image';
 
 // Connecting to my DB using knex.
 const db = knex({
@@ -41,9 +41,7 @@ app.get('/profile/:id', (req, res) => { handleProfileGet({ req, res }) })
 app.put('/image', (req, res) => { handleImage({ req, res }) })
 
 // Face recognition feature.
-/*
 app.post('/imageurl', (req, res) => { handleAPICall({ req, res }) })
-*/
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
