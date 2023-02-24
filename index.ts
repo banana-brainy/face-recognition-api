@@ -40,6 +40,11 @@ app.get('/profile/:id', (req, res) => { handleProfileGet({ req, res }) })
 // Updates the rank and increases the count.
 app.put('/image', (req, res) => { handleImage({ req, res }) })
 
+// Face recognition feature.
+/*
+app.post('/imageurl', (req, res) => { handleAPICall({ req, res }) })
+*/
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
