@@ -30,20 +30,12 @@ export function handleAPICall({ req, res }: { req: Request; res: Response; }): v
     );
 }
 
+// Soon this will be added.
 /*
-export const handleAPICall = (req, res) => {
-    app.models
-    .predict(
-    {
-        id: 'face-detection',
-        name: 'face-detection',
-        version: '6dc7e46bc9124c5c8824be4822abe105',
-        type: 'visual-detector',
-    }, this.state.input)
-    .then(data => {
-        res.json(data);
-    })
-    .catch(err => res.status(400)json('unable to work with API'))
+.then(data => {
+    res.json(data);
+})
+.catch(err => res.status(400)json('unable to work with API'))
 }
 */
 
