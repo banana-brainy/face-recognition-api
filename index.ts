@@ -1,12 +1,13 @@
 import express, { Express } from 'express';
-import dotenv from 'dotenv';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import knex from 'knex';
+import bodyParser from 'body-parser';
+
 import handleRegister from './controllers/register';
 import handleSignIn from './controllers/signin';
 import handleProfileGet from './controllers/profile';
-import { handleImage, handleAPICall } from './controllers/image';
+import handleImage from './controllers/image';
+import handleAPICall from './controllers/apicall';
 
 // Connecting to my DB using knex.
 const db = knex({
@@ -19,7 +20,6 @@ const db = knex({
   }
 });
 
-dotenv.config();
 const port = process.env.PORT;
 
 const app: Express = express();
