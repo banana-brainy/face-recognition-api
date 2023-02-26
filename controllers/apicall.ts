@@ -12,7 +12,7 @@ function handleAPICall({ req, res }: { req: Request; res: Response; })  {
             inputs: [{ data: { image: { url: req.body.input } } }]
         },
         metadata,
-        (err: string, response: any) => {
+        (err: string, response: { status: { code: number; description: string; details: string; }; outputs: { data: { concepts: any; }; }[]; }) => {
             if (err) {
                 console.log("Error: " + err);
                 return;
@@ -25,7 +25,7 @@ function handleAPICall({ req, res }: { req: Request; res: Response; })  {
             for (const c of response.outputs[0].data.concepts) {
                 console.log(c.name + ": " + c.value);
             }
-            res.json(response)
+            res.json(response);
         }
     );
 }
