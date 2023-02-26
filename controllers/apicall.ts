@@ -25,6 +25,7 @@ function handleAPICall({ req, res }: { req: Request; res: Response; })  {
             for (const c of response.outputs[0].data.concepts) {
                 console.log(c.name + ": " + c.value);
             }
+            console.log(response)
             res.json(response);
         }
     );
