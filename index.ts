@@ -1,6 +1,7 @@
-import express, { Express } from 'express';
+import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import knex from 'knex';
+import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 
 import handleRegister from './controllers/register';
@@ -8,6 +9,8 @@ import handleSignIn from './controllers/signin';
 import handleProfileGet from './controllers/profile';
 import handleImage from './controllers/image';
 import handleAPICall from './controllers/apicall';
+
+dotenv.config();
 
 // Connecting to my DB using knex.
 const db = knex({
