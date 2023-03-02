@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Your PAT (Personal Access Token) can be found in the portal under Authentification
-const PAT = '9969c9d10d3048ecbaf120022d70909b';
+/* const PAT = '9969c9d10d3048ecbaf120022d70909b'; */
 // Specify the correct user_id/app_id pairings
 // Since you're making inferences outside your app's scope
 const USER_ID = 'bananabrainy';
@@ -31,7 +31,10 @@ function handleAPICall({ req, res }: { req: Request; res: Response; })  {
             inputs: [{ data: { image: { url: req.body.input, allow_duplicate_url: true } } }]
         },
         metadata,
-        (err: string, response: { status: { code: number; description: string; details: string; }; outputs: { data: { concepts: any; regions: any; }; }[]; }) => {
+        (err: string, response: { 
+            status: { code: number; description: string; details: string; };
+            outputs: { data: { regions: {}; concepts: {} }; }[];
+        }) => {
             if (err) {
                 console.log("Error: " + err);
                 return;
@@ -40,9 +43,7 @@ function handleAPICall({ req, res }: { req: Request; res: Response; })  {
                 console.log("Received failed status: " + response.status.description + "\n" + response.status.details);
                 return;
             }
-            for (const c of response.outputs[0].data.concepts) {
-                console.log(c.name + ": " + c.value);
-            }
+            /* console.log(response.outputs[0].data.regions[0].region_info.bounding_box) */
             res.json(response);
         }
     );

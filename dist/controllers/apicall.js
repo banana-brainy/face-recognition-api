@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // of the image we want as an input. Change these strings to run your own example.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Your PAT (Personal Access Token) can be found in the portal under Authentification
-const PAT = '9969c9d10d3048ecbaf120022d70909b';
+/* const PAT = '9969c9d10d3048ecbaf120022d70909b'; */
 // Specify the correct user_id/app_id pairings
 // Since you're making inferences outside your app's scope
 const USER_ID = 'bananabrainy';
@@ -35,9 +35,7 @@ function handleAPICall({ req, res }) {
             console.log("Received failed status: " + response.status.description + "\n" + response.status.details);
             return;
         }
-        for (const c of response.outputs[0].data.concepts) {
-            console.log(c.name + ": " + c.value);
-        }
+        /* console.log(response.outputs[0].data.regions[0].region_info.bounding_box) */
         res.json(response);
     });
 }

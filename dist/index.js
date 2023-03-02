@@ -11,7 +11,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const register_1 = __importDefault(require("./controllers/register"));
 const signin_1 = __importDefault(require("./controllers/signin"));
 const profile_1 = __importDefault(require("./controllers/profile"));
-const image_1 = __importDefault(require("./controllers/image"));
+const counter_1 = __importDefault(require("./controllers/counter"));
 const apicall_1 = __importDefault(require("./controllers/apicall"));
 dotenv_1.default.config();
 // Connecting to my DB using knex.
@@ -37,9 +37,9 @@ app.post('/register', (req, res) => { (0, register_1.default)({ req, res }); });
 // Returns user's object.
 app.get('/profile/:id', (req, res) => { (0, profile_1.default)({ req, res }); });
 // Updates the rank and increases the count.
-app.put('/image', (req, res) => { (0, image_1.default)({ req, res }); });
+app.put('/count', (req, res) => { (0, counter_1.default)({ req, res }); });
 // Face recognition feature.
-app.post('/imageurl', (req, res) => { (0, apicall_1.default)({ req, res }); });
+app.post('/apicall', (req, res) => { (0, apicall_1.default)({ req, res }); });
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
