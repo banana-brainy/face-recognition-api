@@ -1,12 +1,16 @@
-import express, { Express } from 'express';
-import dotenv from 'dotenv';
-import bodyParser from 'body-parser';
+import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import knex from 'knex';
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+
 import handleRegister from './controllers/register';
 import handleSignIn from './controllers/signin';
 import handleProfileGet from './controllers/profile';
 import handleImage from './controllers/image';
+import handleAPICall from './controllers/apicall';
+
+dotenv.config();
 
 // Connecting to my DB using knex.
 const db = knex({
@@ -19,7 +23,6 @@ const db = knex({
   }
 });
 
-dotenv.config();
 const port = process.env.PORT;
 
 const app: Express = express();
@@ -41,9 +44,7 @@ app.get('/profile/:id', (req, res) => { handleProfileGet({ req, res }) })
 app.put('/image', (req, res) => { handleImage({ req, res }) })
 
 // Face recognition feature.
-/*
 app.post('/imageurl', (req, res) => { handleAPICall({ req, res }) })
-*/
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
