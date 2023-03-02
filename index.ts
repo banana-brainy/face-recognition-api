@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import cors from 'cors';
 import knex from 'knex';
 import dotenv from 'dotenv';
@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 import handleRegister from './controllers/register';
 import handleSignIn from './controllers/signin';
 import handleProfileGet from './controllers/profile';
-import handleImage from './controllers/image';
+import handleCounter from './controllers/counter';
 import handleAPICall from './controllers/apicall';
 
 dotenv.config();
@@ -41,10 +41,10 @@ app.post('/register', (req, res) => { handleRegister({ req, res }) })
 app.get('/profile/:id', (req, res) => { handleProfileGet({ req, res }) })
 
 // Updates the rank and increases the count.
-app.put('/image', (req, res) => { handleImage({ req, res }) })
+app.put('/count', (req, res) => { handleCounter({ req, res }) })
 
 // Face recognition feature.
-app.post('/imageurl', (req, res) => { handleAPICall({ req, res }) })
+app.post('/apicall', (req, res) => { handleAPICall({ req, res }) })
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

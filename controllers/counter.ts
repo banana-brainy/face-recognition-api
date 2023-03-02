@@ -5,7 +5,7 @@ interface IUserID {
     id: string
 }
 
-function handleImage({ req, res }: { req: Request; res: Response; }): void {
+function handleCounter({ req, res }: { req: Request; res: Response; }): void {
     const { id }: IUserID = req.body;
     db('users').where('id', '=', id)
         .increment('entries', 1)
@@ -16,4 +16,4 @@ function handleImage({ req, res }: { req: Request; res: Response; }): void {
         .catch(err => res.status(400).json('unable to get entries'));
 }
 
-export default handleImage
+export default handleCounter
