@@ -24,7 +24,7 @@ const db = (0, knex_1.default)({
         database: 'face_rec'
     }
 });
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.use((0, cors_1.default)());
