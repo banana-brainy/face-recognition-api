@@ -1,29 +1,23 @@
 import { Request, Response } from 'express';
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// In this section, we set the user authentication, user and app ID, model details, and the URL
-// of the image we want as an input. Change these strings to run your own example.
-///////////////////////////////////////////////////////////////////////////////////////////////////
+import dotenv from 'dotenv';
+dotenv.config();
 
-// Your PAT (Personal Access Token): 9969c9d10d3048ecbaf120022d70909b */
-// Specify the correct user_id/app_id pairings
-// Since you're making inferences outside your app's scope
-const USER_ID = 'bananabrainy';
-const APP_ID = 'my-first-application';
-// Change these to whatever model and image URL you want to use
+const user_id = process.env.USER_ID;
+const app_id = process.env.APP_ID;
+const api_key = process.env.API_KEY;
 const MODEL_ID = 'face-detection';
-/* const MODEL_VERSION_ID = '6dc7e46bc9124c5c8824be4822abe105'; */
 
 const { ClarifaiStub, grpc } = require("clarifai-nodejs-grpc");
 const stub = ClarifaiStub.grpc();
 const metadata = new grpc.Metadata();
-metadata.set("authorization", "Key 9969c9d10d3048ecbaf120022d70909b");
+metadata.set("authorization", `Key ${api_key}`);
 
 function handleAPICall({ req, res }: { req: Request; res: Response; })  {
     stub.PostModelOutputs(
         {
             user_app_id: {
-                "user_id": USER_ID,
-                "app_id": APP_ID
+                "user_id": user_id,
+                "app_id": app_id
             },
             model_id: MODEL_ID,
             inputs: [{ data: { image: { url: req.body.input, allow_duplicate_url: true } } }]
