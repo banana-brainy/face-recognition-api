@@ -4,11 +4,11 @@ import knex from 'knex';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 
-import handleRegister from './controllers/register';
-import handleSignIn from './controllers/signin';
-import handleProfileGet from './controllers/profile';
-import handleCounter from './controllers/counter';
-import handleAPICall from './controllers/apicall';
+import handleRegister from './controllers-ts/register';
+import handleSignIn from './controllers-ts/signin';
+import handleProfileGet from './controllers-ts/profile';
+import handleCounter from './controllers-ts/counter';
+import handleAPICall from './controllers-ts/apicall';
 
 dotenv.config();
 
