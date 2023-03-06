@@ -15,12 +15,7 @@ dotenv.config();
 // Connecting to my DB using knex.
 const db = knex({
   client: 'pg',
-  connection: {
-    host: '127.0.0.1',
-    user: 'postgres',
-    password: 'Tujh2022!',
-    database: 'face_rec'
-  }
+  connection: 'postgres://db_for_face_detection_api_user:PWAeLAIVZoupfMpABzjwcivcd55rcDcb@dpg-cg1fbol269vfsns5stp0-a.frankfurt-postgres.render.com/db_for_face_detection_api'
 });
 
 const port = process.env.PORT || 3000;
