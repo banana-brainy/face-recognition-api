@@ -18,7 +18,7 @@ dotenv_1.default.config();
 const db = (0, knex_1.default)({
     client: 'pg',
     connection: {
-        host: 'postgres://db_for_face_detection_api_user:PWAeLAIVZoupfMpABzjwcivcd55rcDcb@dpg-cg1fbol269vfsns5stp0-a/db_for_face_detection_api',
+        host: 'dpg-cg1fbol269vfsns5stp0-a',
         user: 'db_for_face_detection_api_user',
         password: 'PWAeLAIVZoupfMpABzjwcivcd55rcDcb',
         database: 'db_for_face_detection_api'
