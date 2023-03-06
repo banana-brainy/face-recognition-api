@@ -17,12 +17,7 @@ dotenv_1.default.config();
 // Connecting to my DB using knex.
 const db = (0, knex_1.default)({
     client: 'pg',
-    connection: {
-        host: 'postgres://db_for_face_detection_api_user:PWAeLAIVZoupfMpABzjwcivcd55rcDcb@dpg-cg1fbol269vfsns5stp0-a.frankfurt-postgres.render.com/db_for_face_detection_api',
-        user: 'db_for_face_detection_api_user',
-        password: 'PWAeLAIVZoupfMpABzjwcivcd55rcDcb',
-        database: 'db_for_face_detection_api'
-    }
+    connection: 'postgres://db_for_face_detection_api_user:PWAeLAIVZoupfMpABzjwcivcd55rcDcb@dpg-cg1fbol269vfsns5stp0-a.frankfurt-postgres.render.com/db_for_face_detection_api'
 });
 const port = process.env.PORT || 3000;
 const app = (0, express_1.default)();
