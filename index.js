@@ -18,10 +18,10 @@ dotenv_1.default.config();
 const db = (0, knex_1.default)({
     client: 'pg',
     connection: {
-        host: '127.0.0.1',
-        user: 'postgres',
-        password: 'Tujh2022!',
-        database: 'face_rec'
+        host: 'dpg-cg1fbol269vfsns5stp0-a',
+        user: 'db_for_face_detection_api_user',
+        password: 'PWAeLAIVZoupfMpABzjwcivcd55rcDcb',
+        database: 'db_for_face_detection_api'
     }
 });
 const port = process.env.PORT || 3000;
