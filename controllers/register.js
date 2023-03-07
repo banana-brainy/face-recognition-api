@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/* const bcryptjs_1 = __importDefault(require("bcryptjs")); */
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const index_1 = __importDefault(require("../index"));
 function handleRegister({ req, res }) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -20,12 +20,12 @@ function handleRegister({ req, res }) {
         if (!email || !name || !password) {
             return res.status(400).json('incorrect form submission');
         }
-        /* const salt = bcryptjs_1.default.genSaltSync(10);
-        const hash = bcryptjs_1.default.hashSync(password, salt); */
+        const salt = bcryptjs_1.default.genSaltSync(10);
+        const hash = bcryptjs_1.default.hashSync(password, salt);
         try {
             return yield index_1.default.transaction((trx) => {
                 trx.insert({
-                    password: password,
+                    hash: hash,
                     email: email
                 })
                     .into('login')
