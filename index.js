@@ -17,6 +17,7 @@ dotenv_1.default.config();
 // Connecting to my DB using knex.
 const db = (0, knex_1.default)({
     client: 'pg',
+    version: '15',
     connection: {
         host : 'dpg-cg1fbol269vfsns5stp0-a',
         port : 5432,
