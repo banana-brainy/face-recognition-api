@@ -13,16 +13,20 @@ const signin_1 = __importDefault(require("./controllers/signin"));
 const profile_1 = __importDefault(require("./controllers/profile"));
 const counter_1 = __importDefault(require("./controllers/counter"));
 const apicall_1 = __importDefault(require("./controllers/apicall"));
+const host = process.env.HOST_DB;
+const user = process.env.USER_DB;
+const password_db = process.env.PASSWORD_DB;
+const name_db = process.env.NAME_DB;
 dotenv_1.default.config();
 // Connecting to my DB using knex.
 const db = (0, knex_1.default)({
     client: 'pg',
     connection: {
-        host : 'dpg-cg1fbol269vfsns5stp0-a',
+        host : host,
         port : 5432,
-        user : 'db_for_face_detection_api_user',
-        password : 'PWAeLAIVZoupfMpABzjwcivcd55rcDcb',
-        database : 'db_for_face_detection_api'
+        user : user,
+        password : password_db,
+        database : name_db
     }
 });
 const port = process.env.PORT || 3000;
